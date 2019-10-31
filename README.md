@@ -125,7 +125,7 @@ This plugin currently supports the following AWS runtimes:
 
 ## Manual Layer Install
 
-Find the supporting layer for your runtime and region [here](https://nr-layers.iopipe.com]r).
+Find the supporting layer for your runtime and region [here](https://nr-layers.iopipe.com).
 
 Grab the ARN of the most recent version and add it in the AWS Lambda console for your function
 
