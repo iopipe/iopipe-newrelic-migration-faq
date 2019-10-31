@@ -1,5 +1,4 @@
 # IOpipe to New Relic Serverless Migration Reference Guide
-Function faster on AWS Lambda with New Relic Serverless
 
 Includes:
 * Overview
