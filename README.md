@@ -134,7 +134,7 @@ Update your functions handler to point to the newly attached layer in the consol
 Python: `newrelic_lambda_wrapper.handler`
 Node: `newrelic-lambda-wrapper.handler`
 
-Environment Variables
+Set the following Environment Variables
 
 `NEW_RELIC_ACCOUNT_ID`: Your NewRelic [Account ID](https://docs.newrelic.com/docs/accounts/install-new-relic/account-setup/account-id)
 `NEW_RELIC_LAMBDA_HANDLER`: Path to your initial handler
@@ -161,9 +161,11 @@ See the New Relic Layer install instructions above.
 
 Yes. As part of the transition, we are offering a 30-day free trial of New Relic Serverless for IOpipe customers to assist with onboarding and promote retention.
 
-### Are there new features available on New Relic that were not on Iopipe?
+### Are there new features available on New Relic that were not on IOpipe?
 
 The New Relic agent provides additional auto-tracing capabilities out of the box, including numerous database technologies.
+
+New Relic allows users to gain observability for any application, not just for AWS Lambda based applications.
 
 New Relic’s interface allows users to create their own custom dashboards.
 
