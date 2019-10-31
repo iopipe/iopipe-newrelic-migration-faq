@@ -138,8 +138,6 @@ Environment Variables
 
 `NEW_RELIC_ACCOUNT_ID`: Your NewRelic [Account ID](https://docs.newrelic.com/docs/accounts/install-new-relic/account-setup/account-id)
 `NEW_RELIC_LAMBDA_HANDLER`: Path to your initial handler
-`NEW_RELIC_APP_NAME`: Your ap name
-`NEW_RELIC_SERVERLESS_MODE_ENABLED`: For Python only, set to `true`
 
 ## Migration FAQ
 
