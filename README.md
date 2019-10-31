@@ -12,7 +12,7 @@ Includes:
 
 If you’re currently using IOpipe to monitor and debug your AWS Lambda applications, our goal is to make the transition to New Relic Serverless as simple and efficient as possible. 
 
-We’ve built a New Relic Lambda Layer with auto-instrumented observability with install instructions below [jumplink to section].
+We've built a New Relic Lambda Layer with auto-instrumented observability with install instructions below [jumplink to section].
 
 In addition, we’re providing a free trial of New Relic Serverless and extensive support through our Community [Slack](https://iopipe.now.sh/).
 
@@ -135,9 +135,11 @@ Python: `newrelic_lambda_wrapper.handler`
 Node: `newrelic-lambda-wrapper.handler`
 
 Environment Variables
-`NEW_RELIC_ACCOUNT_ID`: Your NewRelic Account ID
+
+`NEW_RELIC_ACCOUNT_ID`: Your NewRelic [Account ID](https://docs.newrelic.com/docs/accounts/install-new-relic/account-setup/account-id)
 `NEW_RELIC_LAMBDA_HANDLER`: Path to your initial handler
-`NEW_RELIC_ACCOUNT_ID`: Your New Relic Account ID
+`NEW_RELIC_APP_NAME`: Your ap name
+`NEW_RELIC_SERVERLESS_MODE_ENABLED`: For Python only, set to `true`
 
 ## Migration FAQ
 
