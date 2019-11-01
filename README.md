@@ -10,11 +10,11 @@ Includes:
 
 ## Overview:
 
-We recently joined the New Relic Serverless team!
+We recently joined the [New Relic Serverless](https://blog.newrelic.com/product-news/iopipe/) team!
 
 If you’re currently using IOpipe to monitor and debug your AWS Lambda applications, our goal is to make the transition to New Relic Serverless as simple and efficient as possible. 
 
-We've built a New Relic Lambda Layer with auto-instrumented observability with install instructions below [jumplink to section].
+We've built a New Relic Lambda Layer with auto-instrumented observability with install instructions below.
 
 In addition, we’re providing a free trial of New Relic Serverless and extensive support through our Community [Slack](https://iopipe.now.sh/).
 
