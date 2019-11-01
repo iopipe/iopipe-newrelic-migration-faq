@@ -47,7 +47,7 @@ This requires you to have the AWS CLI setup.
 Updating Lambda Layers for Serverless Framework users
 
 [serverless-newrelic-lambda-layers](https://github.com/iopipe/serverless-newrelic-lambda-layers)
-A Serverless plugin to add New Relic observability using AWS Lambda Layers without requiring a code change.
+A Serverless plugin to add [New Relic observability](https://newrelic.com/products/serverless-aws-lambda) using AWS Lambda Layers without requiring a code change.
 
 ### Requirements
 
@@ -82,7 +82,7 @@ plugins:
   - serverless-newrelic-lambda-layers
 ```
 
-If you don't yet have a New Relic account, [sign up here](https://newrelic.com/signup).
+If you don't yet have a New Relic account, [sign up here](https://newrelic.com/products/serverless-aws-lambda).
 
 Then set up the [New Relic AWS Integration](https://docs.newrelic.com/docs/serverless-function-monitoring/aws-lambda-monitoring/get-started/enable-new-relic-monitoring-aws-lambda#enable-process) (only the `set-up-lambda-integration` step is required).
 
@@ -149,17 +149,13 @@ If you are not already a New Relic customer, you will need to [sign up](https://
 
 You will have 30 days from Nov. 1, 2019 to make the migration to New Relic. We are publishing a series of documentation available via email, in-app, Slack, and meetings to support you in the transition.
 
-Do not hesitate to reach out if you have a question. We are here to help every step of the way.
+Do not hesitate to [reach out](https://iopipe.now.sh/) if you have a question. We are here to help every step of the way.
 
 ### What if I’m already a New Relic customer?
 
-Good news! You can add New Relic Serverless monitoring to your AWS Lambda functions simply by updating to the New Relic Layer provided by the IOpipe team.
+Good news! You can add New Relic Serverless monitoring to your AWS Lambda functions simply by updating to the [New Relic Layer](https://github.com/iopipe/serverless-newrelic-lambda-layers) provided by the IOpipe team.
 
 See the New Relic Layer install instructions above.
-
-### Will IOpipe users get any discount on New Relic?
-
-Yes. As part of the transition, we are offering a 30-day free trial of New Relic Serverless for IOpipe customers to assist with onboarding and promote retention.
 
 ### Are there new features available on New Relic that were not on IOpipe?
 
@@ -168,71 +164,6 @@ The New Relic agent provides additional auto-tracing capabilities out of the box
 New Relic allows users to gain observability for any application, not just for AWS Lambda based applications.
 
 New Relic’s interface allows users to create their own custom dashboards.
-
-### How do I migrate my custom instrumentation to New Relic?
-
-To configure custom instrumentation in New Relic, the following documentation will get you started.
-
-NodeJS: https://docs.newrelic.com/docs/agents/nodejs-agent/api-guides/nodejs-agent-api
-Python: https://docs.newrelic.com/docs/agents/python-agent/python-agent-api
-
-New Relic receives data in two primary forms:
-
-#### 1. Metric data measures numeric, time-based values; for example, connections per minute.
-
-New Relic Custom Metric API calls: 
-
-Python
-
-```python
-newrelic.agent.record_custom_metric(name, value, application=None)
-```
-
-NodeJS
-
-```js
-newrelic.recordMetric(name, value)
-``` 
-
-#### 2. Event data captures discrete event information. 
-
-Events have key-value attributes attached to them. You can analyze and query event data in New Relic Insights as well as on the individual invocation record:
-
-New Relic Custom Event API calls:
-
-Python
-
-```python
-newrelic.agent.record_custom_event(event_type, params, application=None)
-```
-
-Node.js
-
-```js
-newrelic.recordCustomEvent(eventType, attributes) 
-```
-
-Python Example
-
-```python
-import newrelic
-
-def handler(event, context):
-    newrelic.agent.record_custom_event('CustomEvent', {'foo': 'bar'})
-```
-
-Node Example
-
-```js
-'use strict';
-
-const newrelic = require('newrelic');
-require('@newrelic/aws-sdk');
-
-module.exports.handler = async event => {
-  newrelic.recordCustomEvent("MyEventType", {foo: "bar"});
-};
-```
 
 ### What can New Relic Serverless users look forward to? 
 
