@@ -53,7 +53,7 @@ In this section, you'll run a set-up script that does the following:
 - Configures a New Relic log-ingestion Lambda that will send your Lambda log data to New Relic.
 
 To use the script:
-1. Ensure you've downloaded the script and meet its requirements.
+1. Ensure you've downloaded [the script](https://docs.newrelic.com/docs/serverless-function-monitoring/aws-lambda-monitoring/get-started/enable-new-relic-monitoring-aws-lambda#script) and meet its requirements.
 2. Optional: If you have multiple AWS profiles and don't want to use the default, use `AWS_DEFAULT_PROFILE`[environment variable](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html) to set another profile name. Ensure the profile is properly configured (including the default region). Example:
 
 ```
