@@ -40,11 +40,49 @@ If you have a question that’s not answered in our FAQs or a feature request fo
 
 ## Install Instructions
 
-Enable New Relic Monitoring Requirements:  https://docs.newrelic.com/docs/serverless-function-monitoring/aws-lambda-monitoring/get-started/enable-new-relic-monitoring-aws-lambda
+### Enable New Relic monitoring of AWS Lambda Cloudwatch Logs
+
+New Relic monitoring for AWS Lambda offers in-depth performance monitoring for your Lambda functions. This document explains how to enable this feature and get started using it.
 
 This requires you to have the AWS CLI setup.
 
-## Recommended method: 
+## Step 1: Configure AWS to communicate with New Relic
+In this section, you'll run a set-up script that does the following:
+
+- Configures your AWS account and Lambda function to communicate with New Relic.
+- Configures a New Relic log-ingestion Lambda that will send your Lambda log data to New Relic.
+
+To use the script:
+1. Ensure you've downloaded the script and meet its requirements.
+2. Optional: If you have multiple AWS profiles and don't want to use the default, use `AWS_DEFAULT_PROFILE`[environment variable](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html) to set another profile name. Ensure the profile is properly configured (including the default region). Example:
+
+```
+export AWS_DEFAULT_PROFILE=MY_OTHER_PROFILE
+```
+3. Run the following command in the same directory where the script is located:
+```
+./newrelic-cloud set-up-lambda-integration --nr-account-id YOUR_ACCOUNT_ID \
+--linked-account-name YOUR_LINKED_ACCOUNT_NAME \
+--nr-api-key YOUR_NR_API_KEY
+```
+
+Notes:
+
+- This defaults to US. If you are integrating with the New Relic EU region, add the following argument:
+
+```
+--nr-region "eu"
+```
+- The value of your `YOUR_NR_API_KEY` is your Personal API Key. This is not the same as your New Relic REST API key. For more information about `YOUR_NR_API_KEY` and other arguments, see [New Relic's Lambda documentation on GitHub](https://github.com/newrelic/nr-lambda-onboarding#arguments)  .
+
+4. Optional: If you want to stream all logs to New Relic Logs:
+   1. Go to the New Relic `newrelic-log-ingestion` Lambda and set the `LOGGING_ENABLED` environment variable to `true`
+   2. Remove the `NR_LAMBDA_MONITORING` Subscription filter pattern. Go to the Log Group for each monitored Lambda, remove the `newrelic-log-ingestion` subscription and re-add it back. (There is no way to edit existing filter patterns).
+
+For more manual alternatives to using the script, or to learn what actions it performs, see the [manual instructions](https://docs.newrelic.com/docs/serverless-function-monitoring/aws-lambda-monitoring/get-started/enable-new-relic-monitoring-aws-lambda#manual-setup).
+
+
+## Step 2a: Instrument Lambda Code using Serverless Framework Plugin (recommended method): 
 
 Updating Lambda Layers for Serverless Framework users
 
@@ -125,7 +163,7 @@ This plugin currently supports the following AWS runtimes:
 * python3.6
 * python3.7
 
-## Manual Layer Install
+## Step 2b:  Instrument Lambda Code using the Manual Layer Install method
 
 Find the supporting layer for your runtime and region [here](https://nr-layers.iopipe.com).
 
