@@ -44,7 +44,8 @@ If you have a question that’s not answered in our FAQs or a feature request fo
 
 New Relic monitoring for AWS Lambda offers in-depth performance monitoring for your Lambda functions. This document explains how to enable this feature and get started using it.
 
-This requires you to have the AWS CLI setup.
+This requires you to have the AWS CLI setup and at least Python 2.6.6 installed.
+
 
 ## Step 1: Configure AWS to communicate with New Relic
 In this section, you'll run a set-up script that does the following:
@@ -53,7 +54,11 @@ In this section, you'll run a set-up script that does the following:
 - Configures a New Relic log-ingestion Lambda that will send your Lambda log data to New Relic.
 
 To use the script:
-1. Ensure you've downloaded [the script](https://docs.newrelic.com/docs/serverless-function-monitoring/aws-lambda-monitoring/get-started/enable-new-relic-monitoring-aws-lambda#script) and meet its requirements.
+1. Ensure you've downloaded [the script](https://github.com/newrelic/nr-lambda-onboarding/archive/master.zip) and meet its requirements.  
+  a) Go to the nr-lambda-onboarding-master directory:  
+      `cd nr-lambda-onboarding-master`  
+  b) Add execution permissions to the newrelic-cloud script:  
+      `chmod +x newrelic-cloud`  
 2. Optional: If you have multiple AWS profiles and don't want to use the default, use `AWS_DEFAULT_PROFILE`[environment variable](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html) to set another profile name. Ensure the profile is properly configured (including the default region). Example:
 
 ```
@@ -73,7 +78,15 @@ Notes:
 ```
 --nr-region "eu"
 ```
-- The value of your `YOUR_NR_API_KEY` is your Personal API Key. This is not the same as your New Relic REST API key. For more information about `YOUR_NR_API_KEY` and other arguments, see [New Relic's Lambda documentation on GitHub](https://github.com/newrelic/nr-lambda-onboarding#arguments)  .
+- The value of `YOUR_ACCOUNT_ID` can be seen in the address bar when on the New Relic site  `https://rpm.newrelic.com/accounts/<YOUR_ACCOUNT_ID>`
+- `YOUR_LINKED_ACCOUNT_NAME` is the name of your AWS account that will appear in NR Cloud integrations. It is used to easily identify your account in NR. The cloud account will be created if it does not exist yet.
+- The value of your `YOUR_NR_API_KEY` is your Personal API Key. This is not the same as your New Relic REST API key. To generate an API key for an existing user:  
+    - Ensure you are the account Owner or Admin on the account.  
+    - Go to [rpm.newrelic.com]()  > (account dropdown) > Account settings > Account > Users and roles.  
+    - Select the user.  
+    - Select + New API key.  
+    - When prompted, confirm key creation.  
+ -  For more information about other arguments, see [New Relic's Lambda documentation on GitHub](https://github.com/newrelic/nr-lambda-onboarding#arguments)  .
 
 4. Optional: If you want to stream all logs to New Relic Logs:
    1. Go to the New Relic `newrelic-log-ingestion` Lambda and set the `LOGGING_ENABLED` environment variable to `true`
