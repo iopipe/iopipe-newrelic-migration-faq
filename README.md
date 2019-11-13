@@ -82,7 +82,7 @@ Notes:
 - `YOUR_LINKED_ACCOUNT_NAME` is the name of your AWS account that will appear in NR Cloud integrations. It is used to easily identify your account in NR. The cloud account will be created if it does not exist yet.
 - The value of your `YOUR_NR_API_KEY` is your Personal API Key. This is not the same as your New Relic REST API key. To generate an API key for an existing user:  
     - Ensure you are the account Owner or Admin on the account.  
-    - Go to [rpm.newrelic.com]()  > (account dropdown) > Account settings > Account > Users and roles.  
+    - Go to [rpm.newrelic.com](https://rpm.newrelic.com)  > (account dropdown) > Account settings > Account > Users and roles.  
     - Select the user.  
     - Select + New API key.  
     - When prompted, confirm key creation.  
