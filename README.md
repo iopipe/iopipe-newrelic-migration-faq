@@ -196,7 +196,7 @@ Set the following Environment Variables
 
 ### Do I have to set up a new New Relic account?
 
-If you are not already a New Relic customer, you will need to [sign up](https://newrelic.com/signup) for a New Relic account before installing the Serverless plugin.
+If you are not already a New Relic customer, you will need to [sign up](https://newrelic.com/products/serverless-aws-lambda) for a New Relic account before installing the Serverless plugin.
 
 ### How much time will I have to migrate to New Relic Serverless?
 
