@@ -26,6 +26,7 @@ If you have a question that’s not answered in our FAQs or a feature request fo
 * Python
 * Java
 * Go
+* .Net
 
 #### Features:
 
@@ -36,173 +37,23 @@ If you have a question that’s not answered in our FAQs or a feature request fo
 * Drilldown Search
 * Error Aggregation
 * New Relic Insights Dashboard
+* Distributed Tracing
+* Observability for all of your Serverless and non-serverless workloads
 
 
-## Install Instructions
+## Getting Started
 
 ### Enable New Relic monitoring of AWS Lambda Cloudwatch Logs
 
-New Relic monitoring for AWS Lambda offers in-depth performance monitoring for your Lambda functions. This document explains how to enable this feature and get started using it.
+If you don't already have a New Relic account, you can sign up for a free trial [here](https://newrelic.com/signup?trial=nr+serverless).
 
-This requires you to have the AWS CLI setup and at least Python 2.6.6 installed.
-
-
-## Step 1: Configure AWS to communicate with New Relic
-In this section, you'll run a set-up script that does the following:
-
-- Configures your AWS account and Lambda function to communicate with New Relic.
-- Configures a New Relic log-ingestion Lambda that will send your Lambda log data to New Relic.
-
-To use the script:
-1. Ensure you've downloaded [the script](https://github.com/newrelic/nr-lambda-onboarding/archive/master.zip) and meet its requirements.  
-  a) Go to the nr-lambda-onboarding-master directory:  
-      `cd nr-lambda-onboarding-master`  
-  b) Add execution permissions to the newrelic-cloud script:  
-      `chmod +x newrelic-cloud`  
-2. Optional: If you have multiple AWS profiles and don't want to use the default, use `AWS_DEFAULT_PROFILE`[environment variable](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html) to set another profile name. Ensure the profile is properly configured (including the default region). Example:
-
-```
-export AWS_DEFAULT_PROFILE=MY_OTHER_PROFILE
-```
-3. Run the following command in the same directory where the script is located:
-```
-./newrelic-cloud set-up-lambda-integration --nr-account-id YOUR_ACCOUNT_ID \
---linked-account-name YOUR_LINKED_ACCOUNT_NAME \
---nr-api-key YOUR_NR_API_KEY
-```
-
-Notes:
-
-- This defaults to US. If you are integrating with the New Relic EU region, add the following argument:
-
-```
---nr-region "eu"
-```
-- The value of `YOUR_ACCOUNT_ID` can be seen in the address bar when on the New Relic site  `https://rpm.newrelic.com/accounts/<YOUR_ACCOUNT_ID>`
-- `YOUR_LINKED_ACCOUNT_NAME` is the name of your AWS account that will appear in NR Cloud integrations. It is used to easily identify your account in NR. The cloud account will be created if it does not exist yet.
-- The value of your `YOUR_NR_API_KEY` is your Personal API Key. This is not the same as your New Relic REST API key. To generate an API key for an existing user:  
-    - Ensure you are the account Owner or Admin on the account.  
-    - Go to [rpm.newrelic.com](https://rpm.newrelic.com)  > (account dropdown) > Account settings > Account > Users and roles.  
-    - Select the user.  
-    - Select + New API key.  
-    - When prompted, confirm key creation.  
- -  For more information about other arguments, see [New Relic's Lambda documentation on GitHub](https://github.com/newrelic/nr-lambda-onboarding#arguments)  .
-
-4. Optional: If you want to stream all logs to New Relic Logs:
-   1. Go to the New Relic `newrelic-log-ingestion` Lambda and set the `LOGGING_ENABLED` environment variable to `true`
-   2. Remove the `NR_LAMBDA_MONITORING` Subscription filter pattern. Go to the Log Group for each monitored Lambda, remove the `newrelic-log-ingestion` subscription and re-add it back. (There is no way to edit existing filter patterns).
-
-For more manual alternatives to using the script, or to learn what actions it performs, see the [manual instructions](https://docs.newrelic.com/docs/serverless-function-monitoring/aws-lambda-monitoring/get-started/enable-new-relic-monitoring-aws-lambda#manual-setup).
-
-
-## Step 2a: Instrument Lambda Code using Serverless Framework Plugin (recommended method): 
-
-Updating Lambda Layers for Serverless Framework users
-
-[serverless-newrelic-lambda-layers](https://github.com/iopipe/serverless-newrelic-lambda-layers)
-A Serverless plugin to add [New Relic observability](https://newrelic.com/products/serverless-aws-lambda) using AWS Lambda Layers without requiring a code change.
-
-### Requirements
-
-* [serverless](https://github.com/serverless/serverless/) >= 1.34.0
-* Set up the [New Relic AWS Integration](https://docs.newrelic.com/docs/serverless-function-monitoring/aws-lambda-monitoring/get-started/enable-new-relic-monitoring-aws-lambda#enable-process) (only the `set-up-lambda-integration` step is required)
-
-### Features
-
-* Supports Node.js and Python runtimes (more runtimes to come)
-* No code change required to enable New Relic
-* Bundles New Relic's agent in a single layer
-* Configures CloudWatch subscription filters automatically
-
-### Install
-
-With NPM:
-
-```bash
-npm install --save-dev serverless-newrelic-lambda-layers
-```
-
-With yarn:
-
-```bash
-yarn add --dev serverless-newrelic-lambda-layers
-```
-
-Add the plugin to your serverless.yml:
-
-```yaml
-plugins:
-  - serverless-newrelic-lambda-layers
-```
-
-If you don't yet have a New Relic account, [sign up here](https://newrelic.com/products/serverless-aws-lambda).
-
-Then set up the [New Relic AWS Integration](https://docs.newrelic.com/docs/serverless-function-monitoring/aws-lambda-monitoring/get-started/enable-new-relic-monitoring-aws-lambda#enable-process) (only the `set-up-lambda-integration` step is required).
-
-Get your [New Relic Account ID](https://docs.newrelic.com/docs/accounts/install-new-relic/account-setup/account-id) and plug it into your `serverless.yml`:
-
-```yaml
-custom:
-  newRelic:
-      accountId: your-new-relic-account-id-here
-```
-
-Deploy:
-
-```bash
-sls deploy
-```
-
-And you're all set.
-
-### Usage
-
-This plugin wraps your handlers without requiring a code change. If you're currently using a New Relic agent, you can remove the wrapping code you currently have, and this plugin will do it for you automatically.
-
-For additional configuration options check out the [README](https://github.com/iopipe/serverless-newrelic-lambda-layers/).
-
-For more on how to instrument your functions:
-
-* [Node.js Instrumentation Guide](https://docs.newrelic.com/docs/agents/nodejs-agent/getting-started/introduction-new-relic-nodejs#extend-instrumentation)
-* [Python Instrumentation Guide](https://docs.newrelic.com/docs/agents/python-agent/custom-instrumentation/python-custom-instrumentation)
-
-### Supported Runtimes
-
-This plugin currently supports the following AWS runtimes:
-
-* nodejs8.10
-* nodejs10.x
-* python2.7
-* python3.6
-* python3.7
-
-## Step 2b:  Instrument Lambda Code using the Manual Layer Install method
-
-Find the supporting layer for your runtime and region [here](https://nr-layers.iopipe.com).
-
-Grab the ARN of the most recent version and add it in the AWS Lambda console for your function
-
-Update your functions handler to point to the newly attached layer in the console for your function
-
-Python: `newrelic_lambda_wrapper.handler`
-Node: `newrelic-lambda-wrapper.handler`
-
-Set the following Environment Variables
-
-`NEW_RELIC_ACCOUNT_ID`: Your NewRelic [Account ID](https://docs.newrelic.com/docs/accounts/install-new-relic/account-setup/account-id)
-`NEW_RELIC_LAMBDA_HANDLER`: Path to your initial handler
+Once your trial is setup, you can head over to the install instructions to get started instrumenting your Lambda Functions with zero code changes required: https://docs.newrelic.com/docs/serverless-function-monitoring/aws-lambda-monitoring/get-started/introduction-new-relic-monitoring-aws-lambda
 
 ## Migration FAQ
 
 ### Do I have to set up a new New Relic account?
 
-If you are not already a New Relic customer, you will need to [sign up](https://newrelic.com/products/serverless-aws-lambda) for a New Relic account before installing the Serverless plugin.
-
-### How much time will I have to migrate to New Relic Serverless?
-
-You will have 30 days from Nov. 1, 2019 to make the migration to New Relic. We are publishing a series of documentation available via email, in-app, Slack, and meetings to support you in the transition.
-
-Do not hesitate to [reach out](https://iopipe.now.sh/) if you have a question. We are here to help every step of the way.
+If you are not already a New Relic customer, you will need to [sign up](https://newrelic.com/signup?trial=nr+serverless) for a New Relic account before installing the Serverless plugin.
 
 ### What if I’m already a New Relic customer?
 
